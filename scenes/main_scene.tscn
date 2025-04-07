@@ -1,97 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://dm4tu84xol3yq"]
+[gd_scene load_steps=3 format=3 uid="uid://dm4tu84xol3yq"]
 
-[ext_resource type="Script" uid="uid://cv46lpbli0q63" path="res://scripts/MainCamera.cs" id="1_50q5v"]
-[ext_resource type="Script" uid="uid://cygfpobe2n0x6" path="res://scripts/HudLayer.cs" id="1_kem2q"]
-[ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/player_core.tscn" id="3_wcibb"]
-[ext_resource type="Script" uid="uid://hstx6vsh6m2q" path="res://scripts/Zone.cs" id="5_vvc1a"]
-[ext_resource type="Shader" uid="uid://cdpejhgwqk2pt" path="res://shaders/checkerboard.gdshader" id="6_oswgg"]
+[ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/player.tscn" id="3_wcibb"]
 [ext_resource type="PackedScene" uid="uid://ctvy2lw5wkul5" path="res://scenes/rect_wall.tscn" id="7_5nv4i"]
-[ext_resource type="Script" uid="uid://di4gxbhc1f1tm" path="res://scripts/thing_bases/RigidThing.cs" id="7_pg1sk"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jv3pp"]
-blend_mode = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_23f35"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_r1rkw"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ubl3m"]
-size = Vector2(20, 20)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yfpe3"]
-render_priority = -1
-shader = ExtResource("6_oswgg")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_kxw6x"]
-size = Vector3(20, 0.01, 20)
 
 [node name="Level" type="Node3D"]
 
-[node name="HUDLayer" type="CanvasLayer" parent="."]
-script = ExtResource("1_kem2q")
-
-[node name="DebugInfo" type="RichTextLabel" parent="HUDLayer"]
-offset_right = 1156.0
-offset_bottom = 649.0
-text = "SUP"
-scroll_active = false
-
-[node name="Inspect" type="RichTextLabel" parent="HUDLayer"]
-offset_right = 117.0
-offset_bottom = 29.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-bbcode_enabled = true
-
-[node name="Panel" type="Panel" parent="HUDLayer/Inspect"]
-material = SubResource("CanvasItemMaterial_jv3pp")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Reticle" type="Panel" parent="HUDLayer"]
-material = SubResource("CanvasItemMaterial_23f35")
-offset_left = -3.0
-offset_top = -3.0
-offset_right = 3.0
-offset_bottom = 3.0
-
-[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target", "anchor")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1887)
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 20, 0)
 current = true
-script = ExtResource("1_50q5v")
-target = NodePath("../Player")
-anchor = NodePath("../Player")
-tether_min = 2.0
-tether_max = 2.0
-tether_lerp = 3.0
 
 [node name="Player" parent="." instance=ExtResource("3_wcibb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09787, 0.684634, 0.280129)
-
-[node name="SpawnArea" type="Area3D" parent="."]
-script = ExtResource("5_vvc1a")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnArea"]
-shape = SubResource("BoxShape3D_r1rkw")
-
-[node name="Floor" type="RigidBody3D" parent="SpawnArea"]
-freeze = true
-script = ExtResource("7_pg1sk")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnArea/Floor"]
-mesh = SubResource("PlaneMesh_ubl3m")
-skeleton = NodePath("../../..")
-surface_material_override/0 = SubResource("ShaderMaterial_yfpe3")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SpawnArea/Floor"]
-shape = SubResource("BoxShape3D_kxw6x")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.56636, 2.3, 0)
 
 [node name="NorthWall" parent="." instance=ExtResource("7_5nv4i")]
 transform = Transform3D(20, 0, 0, 0, 4, 0, 0, 0, 1, 0, 2, 10)
@@ -107,4 +26,8 @@ collision_layer = 3
 
 [node name="EastWall" parent="." instance=ExtResource("7_5nv4i")]
 transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 20, 10, 2, 0)
+collision_layer = 3
+
+[node name="Floor" parent="." instance=ExtResource("7_5nv4i")]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 0)
 collision_layer = 3

@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cv8jq1i3wnpej"]
+
+[ext_resource type="Script" uid="uid://cf1ncp7jbhsk5" path="res://scripts/Player.cs" id="1_sg5xd"]
+[ext_resource type="Shader" uid="uid://u0mac202a35i" path="res://shaders/light_grid.gdshader" id="2_g2els"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gy7ai"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ruixa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqs0n"]
+render_priority = 0
+shader = ExtResource("2_g2els")
+shader_parameter/scale = 0.2
+shader_parameter/grid_scale = 0.1
+
+[node name="PlayerCore" type="RigidBody3D"]
+script = ExtResource("1_sg5xd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_gy7ai")
+
+[node name="CoreMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ruixa")
+surface_material_override/0 = SubResource("ShaderMaterial_wqs0n")

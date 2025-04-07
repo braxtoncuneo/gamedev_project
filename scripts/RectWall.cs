@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class RectWall : RigidThing
+public partial class RectWall : StaticBody3D
 {
 	CollisionShape3D CollisionShape;
 	MeshInstance3D   MeshInstance;
@@ -10,7 +10,6 @@ public partial class RectWall : RigidThing
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		RigidThingReady();
 		scale = Scale;
 		Scale = new Vector3(1,1,1);
 		MeshInstance = FindChild("MeshInstance3D") as MeshInstance3D;
