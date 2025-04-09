@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm4tu84xol3yq"]
+[gd_scene load_steps=4 format=3 uid="uid://dm4tu84xol3yq"]
 
+[ext_resource type="PackedScene" uid="uid://iorqytwghckn" path="res://scenes/follow_camera.tscn" id="1_7ykc4"]
 [ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/player.tscn" id="3_wcibb"]
 [ext_resource type="PackedScene" uid="uid://ctvy2lw5wkul5" path="res://scenes/rect_wall.tscn" id="7_5nv4i"]
 
 [node name="Level" type="Node3D"]
 
-[node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 20, 0)
-current = true
+[node name="FollowCamera" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("1_7ykc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.60444, 0)
+MinTether = 2.0
+Target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_wcibb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09787, 0.684634, 0.280129)
