@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://iorqytwghckn"]
+[gd_scene load_steps=5 format=3 uid="uid://iorqytwghckn"]
 
 [ext_resource type="Script" uid="uid://immgsc7hbpci" path="res://scripts/CameraBody.cs" id="1_jr0g2"]
 [ext_resource type="Script" uid="uid://8s3rv7q7eppm" path="res://scripts/MainCamera.cs" id="2_8esm3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jr0g2"]
+friction = 0.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hc3gv"]
 
@@ -9,12 +12,13 @@
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_jr0g2")
 gravity_scale = 0.0
 linear_damp = 0.5
 script = ExtResource("1_jr0g2")
-MaxTether = 4.0
-MinTether = 4.0
-NearLift = 0.02
+MaxTether = 3.0
+MinTether = 3.0
+NearPush = 0.1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true

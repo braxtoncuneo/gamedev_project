@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm4tu84xol3yq"]
+[gd_scene load_steps=5 format=3 uid="uid://dm4tu84xol3yq"]
 
 [ext_resource type="PackedScene" uid="uid://iorqytwghckn" path="res://scenes/follow_camera.tscn" id="1_7ykc4"]
 [ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/player.tscn" id="3_wcibb"]
+[ext_resource type="PackedScene" uid="uid://crk2gsnb7v4v6" path="res://scenes/auto_light.tscn" id="4_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://ctvy2lw5wkul5" path="res://scenes/rect_wall.tscn" id="7_5nv4i"]
 
 [node name="Level" type="Node3D"]
@@ -9,10 +10,11 @@
 [node name="FollowCamera" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("1_7ykc4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.60444, 0)
 MinTether = 2.0
+Approach = 2.0
 Target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("3_wcibb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09787, 0.684634, 0.280129)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09787, 0.830544, 0.280129)
 
 [node name="NorthWall" parent="." instance=ExtResource("7_5nv4i")]
 transform = Transform3D(20, 0, 0, 0, 4, 0, 0, 0, 1, 0, 2, 10)
@@ -32,4 +34,18 @@ collision_layer = 3
 
 [node name="Floor" parent="." instance=ExtResource("7_5nv4i")]
 transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 0)
+collision_layer = 3
+
+[node name="AutoLight" parent="." instance=ExtResource("4_pu3yx")]
+
+[node name="Catwalk" parent="." instance=ExtResource("7_5nv4i")]
+transform = Transform3D(10, 0, 0, 0, 0.5, 0, 0, 0, 2, 0, 1, 5)
+collision_layer = 3
+
+[node name="Catwalk2" parent="." instance=ExtResource("7_5nv4i")]
+transform = Transform3D(1.41421, -0.353553, 0, 1.41421, 0.353553, 0, 0, 0, 2, -5.53202, 0.368489, 5)
+collision_layer = 3
+
+[node name="Catwalk3" parent="." instance=ExtResource("7_5nv4i")]
+transform = Transform3D(1.41421, 0.353553, 0, -1.41421, 0.353553, 0, 0, 0, 2, 5.532, 0.368, 5)
 collision_layer = 3

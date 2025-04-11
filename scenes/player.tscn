@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cv8jq1i3wnpej"]
+[gd_scene load_steps=7 format=3 uid="uid://cv8jq1i3wnpej"]
 
 [ext_resource type="Script" uid="uid://cf1ncp7jbhsk5" path="res://scripts/Player.cs" id="1_sg5xd"]
 [ext_resource type="Shader" uid="uid://u0mac202a35i" path="res://shaders/light_grid.gdshader" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://tjtg6lxoxxy8" path="res://scenes/vector_readout.tscn" id="3_qhqgy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gy7ai"]
 
@@ -22,3 +23,17 @@ shape = SubResource("SphereShape3D_gy7ai")
 [node name="CoreMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_ruixa")
 surface_material_override/0 = SubResource("ShaderMaterial_wqs0n")
+
+[node name="DebugMovement" type="Node3D" parent="."]
+
+[node name="Right" parent="DebugMovement" instance=ExtResource("3_qhqgy")]
+Vector = Vector3(1, 1, 1)
+
+[node name="Up" parent="DebugMovement" instance=ExtResource("3_qhqgy")]
+Vector = Vector3(1, 1, 1)
+
+[node name="Forward" parent="DebugMovement" instance=ExtResource("3_qhqgy")]
+Vector = Vector3(1, 1, 1)
+
+[node name="Force" parent="DebugMovement" instance=ExtResource("3_qhqgy")]
+Vector = Vector3(1, 1, 1)

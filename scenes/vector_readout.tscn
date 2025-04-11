@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://tjtg6lxoxxy8"]
+
+[ext_resource type="Script" uid="uid://d3waotho6rhpt" path="res://scripts/VectorReadout.cs" id="1_sjrim"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ct4a4"]
+top_radius = 0.0
+bottom_radius = 0.3
+height = 1.0
+radial_segments = 8
+rings = 0
+cap_top = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gdxdn"]
+radial_segments = 8
+rings = 0
+
+[node name="VectorReadout" type="Node3D"]
+top_level = true
+script = ExtResource("1_sjrim")
+Color = Vector4(1, 1, 1, 1)
+Vector = Vector3(1, 0, 0)
+
+[node name="VectorCone" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.86603e-16, -8.74228e-09, 0.15, -0.15, -8.74228e-09, 0, 6.55671e-09, -0.2, -6.55671e-09, 0, 0, -0.9)
+mesh = SubResource("CylinderMesh_ct4a4")
+
+[node name="VectorRod" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.015, 0, 0, 0, -1.74846e-08, 0.015, 0, -0.4, -6.55671e-10, 0, 0, -0.4)
+mesh = SubResource("CylinderMesh_gdxdn")
+skeleton = NodePath("../VectorCone")

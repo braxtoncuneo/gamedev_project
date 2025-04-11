@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://chqkn2jmlj3or"]
+
+[ext_resource type="Shader" uid="uid://bnfca5hmqy4hk" path="res://shaders/flat_color.gdshader" id="1_3lsn4"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_3lsn4")
+shader_parameter/color = Vector4(0, 0, 0, 0)

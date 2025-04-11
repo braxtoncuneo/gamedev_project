@@ -1,15 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://16b75jpxryhe"]
+[gd_scene load_steps=3 format=3 uid="uid://crk2gsnb7v4v6"]
 
-[ext_resource type="Script" uid="uid://df24qkmmt2gvn" path="res://scripts/AutoLight.cs" id="1_v4gj2"]
+[ext_resource type="Script" uid="uid://dje3j26ayqkav" path="res://scripts/AutoLight.cs" id="1_v4gj2"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_g7g0x"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_lc2lt"]
 
-[node name="AutoLight" type="SpotLight3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+[node name="AutoLight" type="Area3D"]
 script = ExtResource("1_v4gj2")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_lc2lt")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
-shape = SubResource("CylinderShape3D_g7g0x")
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0)
+visible = false

@@ -11,7 +11,9 @@ public partial class CameraBody : RigidBody3D
 	[Export]
 	float UnderLift;
 	[Export]
-	float NearLift;
+	float NearPush;
+	[Export]
+	float Approach = 1;
 	[Export]
 	Node3D   Target;
 
@@ -30,18 +32,21 @@ public partial class CameraBody : RigidBody3D
 		Vector3 offset = Target.GlobalPosition - GlobalPosition;
 		Vector3 toward = offset.Normalized();
 		float dist = offset.Length();
+		float speed_toward = toward.Dot(LinearVelocity);
 
-		float coef = (float) delta * 2;
+		float target_speed = speed_toward;
 		if (dist < MinTether) {
-			coef *= -(float) Math.Pow(MinTether-dist,2);
+			target_speed = (dist-MinTether) * Approach;
 		} else if (dist > MaxTether) {
-			coef *= (float) Math.Pow(dist-MaxTether,2);
+			target_speed = (dist-MaxTether) * Approach;
 		}
-		force = toward * new Vector3(coef,coef,coef);
+		float correction = target_speed - speed_toward;
+		force = toward * new Vector3(correction,correction,correction);
 		if (offset.Y > 0) {
 			force.Y += offset.Y*UnderLift;
 		}
-		force.Y += (float) (NearLift/dist);
+		float near_push = (float) (NearPush/(dist*dist));
+		force -= toward.Normalized() * new Vector3(near_push,near_push,near_push);
 		ApplyCentralImpulse(force);
 	}
 
