@@ -3,34 +3,35 @@ using System;
 
 public partial class VectorReadout : Node3D
 {
-	Vector4 color;
-	
+	Vector4 _color;
+
 	[Export]
 	public Vector4 Color {
-		get { return color; }
+		get { return _color; }
 		set {
-			color=value;
-			if (VectorMaterial is not null){
-				VectorMaterial.SetShaderParameter("color",color);
+			_color=value;
+			if (_vectorMaterial is not null){
+				_vectorMaterial.SetShaderParameter("color",_color);
 			}
 		}
 	}
+
 	[Export]
 	public Vector3 Vector;
-	
-	ShaderMaterial VectorMaterial;
-	ShaderMaterial RodMaterial;
-	
+
+	ShaderMaterial _vectorMaterial;
+	ShaderMaterial _rodMaterial;
+
 	public override void _Ready () {
-		var Cone = GetNode("VectorCone") as MeshInstance3D;
-		var Rod  = GetNode("VectorRod") as MeshInstance3D;
-		VectorMaterial = GD.Load("res://materials/flat_color.tres")
+		var cone = GetNode("VectorCone") as MeshInstance3D;
+		var rod  = GetNode("VectorRod") as MeshInstance3D;
+		_vectorMaterial = GD.Load("res://materials/flat_color.tres")
 			.Duplicate() as ShaderMaterial;
-		Cone.SetSurfaceOverrideMaterial(0,VectorMaterial);
-		Rod .SetSurfaceOverrideMaterial(0,VectorMaterial);
+		cone.SetSurfaceOverrideMaterial(0,_vectorMaterial);
+		rod .SetSurfaceOverrideMaterial(0,_vectorMaterial);
 		Color = Color;
 	}
-	
+
 	public override void _Process(double delta) {
 		Node3D parent = GetParent() as Node3D;
 		Vector3 up = new Vector3(0,1,0);
@@ -40,7 +41,7 @@ public partial class VectorReadout : Node3D
 		} else {
 			Show();
 		}
-		
+
 		if (up.Dot(Vector) > 0.9) {
 			up = new Vector3(1,0,0);
 		}
@@ -48,13 +49,13 @@ public partial class VectorReadout : Node3D
 			.LookingAt(Vector,up)
 			.Translated(parent.GlobalPosition);
 	}
-	
+
 	public static void SetVector(Node readout, Vector3 vector) {
 		(readout as VectorReadout).Vector = vector;
 	}
-	
+
 	public static void SetColor(Node readout, Vector4 color) {
 		(readout as VectorReadout).Color = color;
 	}
-	
+
 }

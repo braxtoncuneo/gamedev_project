@@ -4,14 +4,14 @@ using System;
 
 public partial class Player : RigidBody3D
 {
-	
-	Camera3D CurrentCamera;
-	
+
+	Camera3D currentCamera;
+
 	[Export]
 	float Acceleration = 4.0f;
-	
+
 	bool debugMovement;
-	
+
 	[Export]
 	bool DebugMovement {
 		get { return debugMovement; }
@@ -27,10 +27,10 @@ public partial class Player : RigidBody3D
 			}
 		}
 	}
-	
+
 	public override void _Ready()
 	{
-		CurrentCamera = GetViewport().GetCamera3D();
+		currentCamera = GetViewport().GetCamera3D();
 		Vector4 red   = new Vector4(1,0,0,1);
 		Vector4 green = new Vector4(0,1,0,1);
 		Vector4 blue  = new Vector4(0,0,1,1);
@@ -41,16 +41,16 @@ public partial class Player : RigidBody3D
 		VectorReadout.SetColor(GetNode("DebugMovement/Force"),  pink);
 		DebugMovement = DebugMovement;
 	}
-	
+
 	public override void _Process(double delta)
 	{
 		Vector3 movement_force = new Vector3(0,0,0);
 		Vector3 up = new Vector3(0,1,0);
-		Vector3 offset = Transform.Origin - CurrentCamera.GlobalPosition;
+		Vector3 offset = Transform.Origin - currentCamera.GlobalPosition;
 		Vector3 outward = offset.Normalized();
 		Vector3 right = offset.Cross(up);
 		Vector3 forward = up.Cross(right);
-		
+
 		if (Input.IsActionPressed("move_right")) {
 			movement_force += right;
 		}
@@ -65,14 +65,14 @@ public partial class Player : RigidBody3D
 		}
 		float scale = (float)delta*Acceleration;
 		ApplyCentralImpulse(movement_force*new Vector3(scale,scale,scale));
-		
+
 		if (DebugMovement) {
 			VectorReadout.SetVector(GetNode("DebugMovement/Right"),right);
 			VectorReadout.SetVector(GetNode("DebugMovement/Up"),up);
 			VectorReadout.SetVector(GetNode("DebugMovement/Forward"),forward);
 			VectorReadout.SetVector(GetNode("DebugMovement/Force"),movement_force);
 		}
-		
+
 	}
-	
+
 }

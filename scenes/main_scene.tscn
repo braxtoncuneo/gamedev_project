@@ -1,232 +1,473 @@
-[gd_scene load_steps=54 format=3 uid="uid://dm4tu84xol3yq"]
+[gd_scene load_steps=85 format=3 uid="uid://dm4tu84xol3yq"]
 
 [ext_resource type="PackedScene" uid="uid://iorqytwghckn" path="res://scenes/follow_camera.tscn" id="1_7ykc4"]
 [ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/player.tscn" id="3_wcibb"]
 [ext_resource type="PackedScene" uid="uid://crk2gsnb7v4v6" path="res://scenes/auto_light.tscn" id="4_pu3yx"]
-[ext_resource type="Script" uid="uid://byhivd1y27nij" path="res://scripts/LazyShader2d.cs" id="5_c1pb6"]
+[ext_resource type="Script" uid="uid://byhivd1y27nij" path="res://scripts/ShaderTexture2d.cs" id="5_mngbo"]
 [ext_resource type="Shader" uid="uid://coamc2ydn3j4" path="res://shaders/staged/staged_circle.gdshader" id="5_rt2n2"]
-[ext_resource type="Shader" uid="uid://dnm6uvh0do2cq" path="res://shaders/staged/staged_checker.gdshader" id="6_6wevv"]
-[ext_resource type="Shader" uid="uid://c2w50j3rljhn0" path="res://shaders/staged/tile.gdshader" id="7_4w45t"]
+[ext_resource type="Shader" uid="uid://cor7ihjputf63" path="res://shaders/staged/generate_normals.gdshader" id="6_6u1mn"]
 [ext_resource type="PackedScene" uid="uid://ctvy2lw5wkul5" path="res://scenes/rect_wall.tscn" id="7_5nv4i"]
-[ext_resource type="Shader" uid="uid://rtjwbqt2n86s" path="res://shaders/staged/staged_xor.gdshader" id="7_e1cbu"]
-[ext_resource type="Shader" uid="uid://c2p7gje3ro6q0" path="res://shaders/staged/staged_noise.gdshader" id="9_mngbo"]
-[ext_resource type="Shader" uid="uid://bugk3d44dsvjt" path="res://shaders/staged/albedo.gdshader" id="10_mngbo"]
-[ext_resource type="Shader" uid="uid://dile4g7h364mo" path="res://shaders/staged/metal.gdshader" id="11_4w45t"]
-[ext_resource type="Shader" uid="uid://5l08jy0rct7b" path="res://shaders/staged/height.gdshader" id="12_r6p65"]
-[ext_resource type="Shader" uid="uid://bxx0kmeeli2og" path="res://shaders/scratch.gdshader" id="14_r6p65"]
+[ext_resource type="Shader" uid="uid://rtjwbqt2n86s" path="res://shaders/staged/staged_xor.gdshader" id="9_r6p65"]
+[ext_resource type="Shader" uid="uid://okdw0qprrds6" path="res://shaders/staged/voronoi_demo.gdshader" id="10_si52b"]
+[ext_resource type="Shader" uid="uid://b66vxsudr4c6x" path="res://shaders/staged/patches.gdshader" id="11_6u1mn"]
+[ext_resource type="Script" uid="uid://8s3rv7q7eppm" path="res://scripts/MainCamera.cs" id="13_01n6w"]
+[ext_resource type="Shader" uid="uid://culgdpc5v2y48" path="res://shaders/staged/tile_color.gdshader" id="14_01n6w"]
+[ext_resource type="Shader" uid="uid://p5ghe3vlbp43" path="res://shaders/staged/tile_height.gdshader" id="14_si52b"]
+[ext_resource type="PackedScene" uid="uid://bvii5nqfrnrup" path="res://scenes/ground_patch.tscn" id="15_01n6w"]
+[ext_resource type="Shader" uid="uid://bkundmcj8eg8e" path="res://shaders/distort.gdshader" id="15_si52b"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_01n6w"]
-shader = ExtResource("6_6wevv")
-shader_parameter/scale = 0.1
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6u1mn"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_eb0x1"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="Sky" id="Sky_bcnxi"]
+sky_material = SubResource("ProceduralSkyMaterial_6u1mn")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5t4vc"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_eb0x1")
+[sub_resource type="Environment" id="Environment_7nt27"]
+background_mode = 2
+sky = SubResource("Sky_bcnxi")
+tonemap_mode = 2
+glow_enabled = true
 
-[sub_resource type="QuadMesh" id="QuadMesh_5nuyq"]
-material = SubResource("StandardMaterial3D_5t4vc")
+[sub_resource type="ViewportTexture" id="ViewportTexture_si52b"]
+viewport_path = NodePath("Room/ShaderDemos/Patches/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_bcnxi"]
-viewport_path = NodePath("ShaderDemos/Checker/SubViewport")
+resource_local_to_scene = false
+viewport_path = NodePath("ShaderDemos/VoronoiDemo/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7nt27"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0fll"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_bcnxi")
+albedo_texture = SubResource("ViewportTexture_si52b")
+heightmap_scale = 0.77
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = SubResource("ViewportTexture_bcnxi")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6p3nn"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_u0fll")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_r6p65"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_si52b"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_r6p65")
+
+[sub_resource type="QuadMesh" id="QuadMesh_e1cbu"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_si52b")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6u1mn"]
+viewport_path = NodePath("Room/ShaderDemos/Checker/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcnxi"]
+albedo_texture = SubResource("ViewportTexture_6u1mn")
+
+[sub_resource type="Shader" id="Shader_7nt27"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform float scale = 0.1;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	ivec2 position = ivec2(UV/scale);
+	if ((position.x + position.y) % 2 == 0) {
+		COLOR = vec4(0,0,0,1);
+	} else {
+		COLOR = vec4(1,1,1,1);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mngbo"]
+resource_local_to_scene = true
+shader = SubResource("Shader_7nt27")
+shader_parameter/scale = 0.1
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_k6f3i"]
-viewport_path = NodePath("ShaderDemos/Circle/SubViewport")
+viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6f3i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xdqt8"]
 resource_local_to_scene = true
-shader = ExtResource("7_4w45t")
+albedo_texture = SubResource("ViewportTexture_k6f3i")
+
+[sub_resource type="QuadMesh" id="QuadMesh_r6p65"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_xdqt8")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_58gk3"]
+viewport_path = NodePath("Room/ShaderDemos/Circle/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_to7gp"]
+albedo_texture = SubResource("ViewportTexture_58gk3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_si52b"]
+resource_local_to_scene = true
+shader = ExtResource("5_rt2n2")
 shader_parameter/scale = 0.1
-shader_parameter/offset = Vector2(0, 0)
-shader_parameter/pattern = SubResource("ViewportTexture_k6f3i")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_xdqt8"]
-viewport_path = NodePath("ShaderDemos/Tile/SubViewport")
+viewport_path = NodePath("Room/ShaderDemos/TileNormal/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_adb74"]
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_xdqt8")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_01n6w"]
-viewport_path = NodePath("ShaderDemos/Checker/SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_6u1mn"]
-viewport_path = NodePath("ShaderDemos/Circle/SubViewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_58gk3"]
+[sub_resource type="QuadMesh" id="QuadMesh_58gk3"]
 resource_local_to_scene = true
-shader = ExtResource("7_e1cbu")
-shader_parameter/texture_a = SubResource("ViewportTexture_01n6w")
-shader_parameter/texture_b = SubResource("ViewportTexture_6u1mn")
+material = SubResource("StandardMaterial3D_adb74")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_u0fll"]
-viewport_path = NodePath("ShaderDemos/XOR/SubViewport")
+viewport_path = NodePath("Room/ShaderDemos/TileNormal/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6p3nn"]
-resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_u0fll")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k67gn"]
-shader = ExtResource("5_rt2n2")
-shader_parameter/scale = 0.09
+[sub_resource type="ViewportTexture" id="ViewportTexture_4w45t"]
+viewport_path = NodePath("Room/ShaderDemos/TileHeight/SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_k3g67"]
-viewport_path = NodePath("ShaderDemos/Circle/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4bgka"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r6p65"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_k3g67")
+shader = ExtResource("6_6u1mn")
+shader_parameter/height_map = SubResource("ViewportTexture_4w45t")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_e1cbu"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_01n6w"]
+viewport_path = NodePath("Room/ShaderDemos/TileHeight/SubViewport")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c1pb6"]
-seamless = true
-seamless_blend_skirt = 0.399
-noise = SubResource("FastNoiseLite_e1cbu")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6u1mn"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_01n6w")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_02d50"]
-shader = ExtResource("9_mngbo")
-shader_parameter/noise = SubResource("NoiseTexture2D_c1pb6")
+[sub_resource type="QuadMesh" id="QuadMesh_bcnxi"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_6u1mn")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_k67gn"]
+viewport_path = NodePath("Room/ShaderDemos/TileHeight/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3g67"]
+albedo_texture = SubResource("ViewportTexture_k67gn")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4w45t"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r6p65"]
+normalize = false
+noise = SubResource("FastNoiseLite_4w45t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nt27"]
+shader = ExtResource("14_si52b")
+shader_parameter/grout_width = 0.2
+shader_parameter/tile_scale = 0.2
+shader_parameter/grime_map = SubResource("NoiseTexture2D_r6p65")
+
+[sub_resource type="QuadMesh" id="QuadMesh_mngbo"]
+resource_local_to_scene = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4bgka"]
+viewport_path = NodePath("Room/ShaderDemos/TileColor/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_02d50"]
+albedo_texture = SubResource("ViewportTexture_4bgka")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u0fll"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6p3nn"]
+noise = SubResource("FastNoiseLite_u0fll")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pgk25"]
-viewport_path = NodePath("ShaderDemos/Noise/SubViewport")
+viewport_path = NodePath("Room/ShaderDemos/TileHeight/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kkokr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6f3i"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_pgk25")
+shader = ExtResource("14_01n6w")
+shader_parameter/grime_color = Vector3(0.15, 0.05, 0)
+shader_parameter/tile_color = Vector3(0.5, 0.8, 0.7)
+shader_parameter/height_map = SubResource("ViewportTexture_pgk25")
+shader_parameter/grime_map = SubResource("NoiseTexture2D_6p3nn")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhwp2"]
-shader = ExtResource("10_mngbo")
+[sub_resource type="QuadMesh" id="QuadMesh_k67gn"]
+resource_local_to_scene = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kkokr"]
+viewport_path = NodePath("Room/ShaderDemos/Xor/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lhwp2"]
+albedo_texture = SubResource("ViewportTexture_kkokr")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7nt27"]
+viewport_path = NodePath("Room/ShaderDemos/Circle/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_adb74"]
+viewport_path = NodePath("Room/ShaderDemos/Checker/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kkokr"]
+resource_local_to_scene = true
+shader = ExtResource("9_r6p65")
+shader_parameter/texture_a = SubResource("ViewportTexture_7nt27")
+shader_parameter/texture_b = SubResource("ViewportTexture_adb74")
+
+[sub_resource type="QuadMesh" id="QuadMesh_lhwp2"]
+resource_local_to_scene = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_l40q6"]
-viewport_path = NodePath("ShaderDemos/AlbedoTarget/SubViewport")
+viewport_path = NodePath("Room/ShaderDemos/VoronoiDemo/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iav3h"]
-resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_l40q6")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0wyf6"]
-shader = ExtResource("11_4w45t")
-shader_parameter/brightness = 1.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_womr8"]
+resource_local_to_scene = true
+shader = ExtResource("10_si52b")
+shader_parameter/show_nucleus = true
+shader_parameter/grid_scale = 0.1
+shader_parameter/offset = 1.0
+shader_parameter/border = 0.02
+shader_parameter/breadth = 3
+shader_parameter/wrap = true
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xp01v"]
-viewport_path = NodePath("ShaderDemos/MetalTarget/SubViewport")
+[sub_resource type="QuadMesh" id="QuadMesh_7nt27"]
+resource_local_to_scene = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_womr8"]
+viewport_path = NodePath("Room/ShaderDemos/Patches/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_onjth"]
+albedo_texture = SubResource("ViewportTexture_womr8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3g67"]
+resource_local_to_scene = true
+shader = ExtResource("11_6u1mn")
+shader_parameter/root_scale = 0.01
+shader_parameter/scale_factor = 4.0
+shader_parameter/offset = 0.65
+shader_parameter/border = 0.0
+shader_parameter/levels = 1
+shader_parameter/show_nucleus = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_onjth"]
+viewport_path = NodePath("Room/ShaderDemos/TileColor/SubViewport")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xa0eo"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3mjum"]
+noise = SubResource("FastNoiseLite_xa0eo")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_p27gv"]
+viewport_path = NodePath("Room/ShaderDemos/TileHeight/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cn4eu"]
+viewport_path = NodePath("Room/ShaderDemos/TileNormal/SubViewport")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0wyf6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xp01v"]
+noise = SubResource("FastNoiseLite_0wyf6")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jix7a"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_xp01v")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_segjr"]
-shader = ExtResource("12_r6p65")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_beobj"]
-viewport_path = NodePath("ShaderDemos/HeightTarget/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_267kh"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_beobj")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_58gk3"]
-viewport_path = NodePath("ShaderDemos/AlbedoTarget/SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_mngbo"]
-viewport_path = NodePath("ShaderDemos/HeightTarget/SubViewport")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_to7gp"]
-viewport_path = NodePath("ShaderDemos/MetalTarget/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0fll"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_58gk3")
-metallic = 1.0
-metallic_texture = SubResource("ViewportTexture_to7gp")
-metallic_texture_channel = 4
+albedo_texture = SubResource("ViewportTexture_onjth")
+roughness_texture = SubResource("NoiseTexture2D_xp01v")
+normal_enabled = true
+normal_texture = SubResource("ViewportTexture_cn4eu")
+clearcoat_enabled = true
+clearcoat = 0.49
+clearcoat_roughness = 0.45
+clearcoat_texture = SubResource("NoiseTexture2D_3mjum")
 heightmap_enabled = true
-heightmap_texture = SubResource("ViewportTexture_mngbo")
-
-[sub_resource type="SphereMesh" id="SphereMesh_6p3nn"]
-material = SubResource("StandardMaterial3D_u0fll")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_si52b"]
-render_priority = 0
-shader = ExtResource("14_r6p65")
+heightmap_scale = 1.0
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = SubResource("ViewportTexture_p27gv")
 
 [sub_resource type="QuadMesh" id="QuadMesh_4w45t"]
-material = SubResource("ShaderMaterial_si52b")
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_jix7a")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_01n6w"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6u1mn"]
+noise = SubResource("FastNoiseLite_01n6w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01n6w"]
+render_priority = 0
+shader = ExtResource("15_si52b")
+shader_parameter/noise = SubResource("NoiseTexture2D_6u1mn")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6u1mn"]
+material = SubResource("ShaderMaterial_01n6w")
+radial_segments = 128
+rings = 64
 
 [node name="Level" type="Node3D"]
 
-[node name="Room" type="Node3D" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7nt27")
 
-[node name="Floor" parent="Room" instance=ExtResource("7_5nv4i")]
+[node name="Room" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.17784, 3.09981, 19.7226)
+
+[node name="Structure" type="Node3D" parent="Room"]
+
+[node name="Floor" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
 transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 0)
 collision_layer = 3
 
-[node name="NorthWall" parent="Room" instance=ExtResource("7_5nv4i")]
-transform = Transform3D(20, 0, 0, 0, 4, 0, 0, 0, 1, 0, 2, 10)
+[node name="NorthWallLeft" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
+transform = Transform3D(8, 0, 0, 0, 4, 0, 0, 0, 1, -6, 2, 10)
 collision_layer = 3
+script = null
 
-[node name="SouthWall" parent="Room" instance=ExtResource("7_5nv4i")]
+[node name="NorthWallRight" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
+transform = Transform3D(8, 0, 0, 0, 4, 0, 0, 0, 1, 6, 2, 10)
+collision_layer = 3
+script = null
+
+[node name="SouthWall" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
 transform = Transform3D(20, 0, 0, 0, 4, 0, 0, 0, 1, 0, 2, -10)
 collision_layer = 3
 
-[node name="WestWall" parent="Room" instance=ExtResource("7_5nv4i")]
+[node name="WestWall" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
 transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 20, -10, 2, 0)
 collision_layer = 3
 
-[node name="EastWall" parent="Room" instance=ExtResource("7_5nv4i")]
+[node name="EastWall" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
 transform = Transform3D(1, 0, 0, 0, 4, 0, 0, 0, 20, 10, 2, 0)
 collision_layer = 3
 
-[node name="Catwalk" parent="Room" instance=ExtResource("7_5nv4i")]
+[node name="Catwalk" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
 transform = Transform3D(10, 0, 0, 0, 0.5, 0, 0, 0, 2, 0, 1, 5)
 collision_layer = 3
 
-[node name="Catwalk2" parent="Room" instance=ExtResource("7_5nv4i")]
+[node name="Catwalk2" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
 transform = Transform3D(1.41421, -0.353553, 0, 1.41421, 0.353553, 0, 0, 0, 2, -5.53202, 0.368489, 5)
 collision_layer = 3
 
-[node name="Catwalk3" parent="Room" instance=ExtResource("7_5nv4i")]
+[node name="Catwalk3" parent="Room/Structure" instance=ExtResource("7_5nv4i")]
 transform = Transform3D(1.41421, 0.353553, 0, -1.41421, 0.353553, 0, 0, 0, 2, 5.532, 0.368, 5)
 collision_layer = 3
 
-[node name="AutoLight" parent="Room" instance=ExtResource("4_pu3yx")]
+[node name="AutoLight" parent="Room/Structure" instance=ExtResource("4_pu3yx")]
 
-[node name="ShaderDemos" type="Node3D" parent="."]
+[node name="Sphere" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(0.885904, 0, -0.463867, 0, 1, 0, 0.463867, 0, 0.885904, 2.11351, 1.99705, -0.0111986)
+mesh = SubResource("SphereMesh_6p3nn")
+skeleton = NodePath("../..")
 
-[node name="Checker" type="Node3D" parent="ShaderDemos"]
+[node name="ShaderDemos" type="Node3D" parent="Room"]
+
+[node name="Checker" type="MeshInstance3D" parent="Room/ShaderDemos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("5_c1pb6")
-ShaderMat = SubResource("ShaderMaterial_01n6w")
+mesh = SubResource("QuadMesh_e1cbu")
+surface_material_override/0 = SubResource("StandardMaterial3D_bcnxi")
+script = ExtResource("5_mngbo")
+ShaderMat = SubResource("ShaderMaterial_mngbo")
+RenderTargetUpdateMode = 4
 
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/Checker"]
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/Checker"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+render_target_update_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/Checker/SubViewport"]
-material = SubResource("ShaderMaterial_01n6w")
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/Checker/SubViewport"]
+material = SubResource("ShaderMaterial_mngbo")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/Checker"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_7nt27")
+[node name="Circle" type="MeshInstance3D" parent="Room/ShaderDemos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+mesh = SubResource("QuadMesh_r6p65")
+surface_material_override/0 = SubResource("StandardMaterial3D_to7gp")
+script = ExtResource("5_mngbo")
+ShaderMat = SubResource("ShaderMaterial_si52b")
+RenderTargetUpdateMode = 4
 
-[node name="Tile" type="Node3D" parent="ShaderDemos"]
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/Circle"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/Circle/SubViewport"]
+material = SubResource("ShaderMaterial_si52b")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TileNormal" type="MeshInstance3D" parent="Room/ShaderDemos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
-script = ExtResource("5_c1pb6")
+mesh = SubResource("QuadMesh_58gk3")
+surface_material_override/0 = SubResource("StandardMaterial3D_6p3nn")
+script = ExtResource("5_mngbo")
+ShaderMat = SubResource("ShaderMaterial_r6p65")
+RenderTargetUpdateMode = 4
+
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/TileNormal"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/TileNormal/SubViewport"]
+material = SubResource("ShaderMaterial_r6p65")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TileHeight" type="MeshInstance3D" parent="Room/ShaderDemos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
+mesh = SubResource("QuadMesh_bcnxi")
+surface_material_override/0 = SubResource("StandardMaterial3D_k3g67")
+script = ExtResource("5_mngbo")
+ShaderMat = SubResource("ShaderMaterial_7nt27")
+RenderTargetUpdateMode = 4
+
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/TileHeight"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/TileHeight/SubViewport"]
+material = SubResource("ShaderMaterial_7nt27")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TileColor" type="MeshInstance3D" parent="Room/ShaderDemos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2, 0)
+mesh = SubResource("QuadMesh_mngbo")
+surface_material_override/0 = SubResource("StandardMaterial3D_02d50")
+script = ExtResource("5_mngbo")
 ShaderMat = SubResource("ShaderMaterial_k6f3i")
+RenderTargetUpdateMode = 4
 
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/Tile"]
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/TileColor"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+render_target_update_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/Tile/SubViewport"]
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/TileColor/SubViewport"]
 material = SubResource("ShaderMaterial_k6f3i")
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,141 +475,112 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/Tile"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_adb74")
-
-[node name="XOR" type="Node3D" parent="ShaderDemos"]
+[node name="Xor" type="MeshInstance3D" parent="Room/ShaderDemos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
-script = ExtResource("5_c1pb6")
-ShaderMat = SubResource("ShaderMaterial_58gk3")
+mesh = SubResource("QuadMesh_k67gn")
+surface_material_override/0 = SubResource("StandardMaterial3D_lhwp2")
+script = ExtResource("5_mngbo")
+ShaderMat = SubResource("ShaderMaterial_kkokr")
+RenderTargetUpdateMode = 4
 
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/XOR"]
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/Xor"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+render_target_update_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/XOR/SubViewport"]
-material = SubResource("ShaderMaterial_58gk3")
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/Xor/SubViewport"]
+material = SubResource("ShaderMaterial_kkokr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/XOR"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_6p3nn")
-
-[node name="Circle" type="Node3D" parent="ShaderDemos"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
-script = ExtResource("5_c1pb6")
-ShaderMat = SubResource("ShaderMaterial_k67gn")
-
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/Circle"]
-
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/Circle/SubViewport"]
-material = SubResource("ShaderMaterial_k67gn")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/Circle"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_4bgka")
-
-[node name="Noise" type="Node3D" parent="ShaderDemos"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 0)
-script = ExtResource("5_c1pb6")
-ShaderMat = SubResource("ShaderMaterial_02d50")
-
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/Noise"]
-
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/Noise/SubViewport"]
-material = SubResource("ShaderMaterial_02d50")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/Noise"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_kkokr")
-
-[node name="AlbedoTarget" type="Node3D" parent="ShaderDemos"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, 0)
-script = ExtResource("5_c1pb6")
-ShaderMat = SubResource("ShaderMaterial_lhwp2")
-
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/AlbedoTarget"]
-
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/AlbedoTarget/SubViewport"]
-material = SubResource("ShaderMaterial_lhwp2")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/AlbedoTarget"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_iav3h")
-
-[node name="MetalTarget" type="Node3D" parent="ShaderDemos"]
+[node name="VoronoiDemo" type="MeshInstance3D" parent="Room/ShaderDemos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-script = ExtResource("5_c1pb6")
-ShaderMat = SubResource("ShaderMaterial_0wyf6")
+mesh = SubResource("QuadMesh_lhwp2")
+surface_material_override/0 = SubResource("StandardMaterial3D_iav3h")
+script = ExtResource("5_mngbo")
+ShaderMat = SubResource("ShaderMaterial_womr8")
+RenderTargetUpdateMode = 4
 
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/MetalTarget"]
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/VoronoiDemo"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/MetalTarget/SubViewport"]
-material = SubResource("ShaderMaterial_0wyf6")
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/VoronoiDemo/SubViewport"]
+material = SubResource("ShaderMaterial_womr8")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/MetalTarget"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_jix7a")
-
-[node name="HeightTarget" type="Node3D" parent="ShaderDemos"]
+[node name="Patches" type="MeshInstance3D" parent="Room/ShaderDemos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
-script = ExtResource("5_c1pb6")
-ShaderMat = SubResource("ShaderMaterial_segjr")
+mesh = SubResource("QuadMesh_7nt27")
+surface_material_override/0 = SubResource("StandardMaterial3D_onjth")
+script = ExtResource("5_mngbo")
+ShaderMat = SubResource("ShaderMaterial_k3g67")
+RenderTargetUpdateMode = 4
 
-[node name="SubViewport" type="SubViewport" parent="ShaderDemos/HeightTarget"]
+[node name="SubViewport" type="SubViewport" parent="Room/ShaderDemos/Patches"]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+render_target_update_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="ShaderDemos/HeightTarget/SubViewport"]
-material = SubResource("ShaderMaterial_segjr")
+[node name="ColorRect" type="ColorRect" parent="Room/ShaderDemos/Patches/SubViewport"]
+material = SubResource("ShaderMaterial_k3g67")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ShaderDemos/HeightTarget"]
-mesh = SubResource("QuadMesh_5nuyq")
-surface_material_override/0 = SubResource("StandardMaterial3D_267kh")
-
-[node name="FollowCamera" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("1_7ykc4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.77285, 0)
+[node name="FollowCamera" parent="Room" node_paths=PackedStringArray("Target") instance=ExtResource("1_7ykc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.71041, 7.25301)
+visible = false
 MinTether = 2.0
 Approach = 2.0
-Target = NodePath("../Player")
+Target = NodePath("../../Player")
 
-[node name="Player" parent="." instance=ExtResource("3_wcibb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65642, 0.75, 0)
-DebugMovement = true
+[node name="SubViewport" type="SubViewport" parent="Room/FollowCamera"]
 
-[node name="Sphere" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.42213, 1.02979, 0.396631)
-mesh = SubResource("SphereMesh_6p3nn")
+[node name="Camera3D" type="Camera3D" parent="Room/FollowCamera/SubViewport"]
+script = ExtResource("13_01n6w")
 
-[node name="DirectionalLight3D" type="OmniLight3D" parent="."]
+[node name="DirectionalLight3D" type="OmniLight3D" parent="Room"]
 transform = Transform3D(1, 0, 0, 0, 0.504286, 0.863537, 0, -0.863537, 0.504286, 2.30442, 1.00913, 0.508751)
+omni_range = 13.788
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="DirtyTile" type="MeshInstance3D" parent="Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
 mesh = SubResource("QuadMesh_4w45t")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.10102, 2.57245, 0.525169)
+mesh = SubResource("SphereMesh_6u1mn")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="Room"]
+transform = Transform3D(0.665227, -0.597067, -0.448313, 0.338261, -0.294283, 0.893855, -0.665622, -0.746264, 0.00619954, 0, 16.6691, 1.48741)
+light_energy = 3.0
+light_indirect_energy = 2.0
+
+[node name="GroundPatch" parent="." instance=ExtResource("15_01n6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -863.505, -320.147, -1245.86)
+HorizontalScale = 20.0
+VerticalScale = 500.0
+MeshResolution = Vector2i(100, 100)
+
+[node name="Player" parent="." instance=ExtResource("3_wcibb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65642, 5.4031, 24.574)
+continuous_cd = true
+Acceleration = 3.0
+DebugMovement = true

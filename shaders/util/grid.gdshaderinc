@@ -1,6 +1,6 @@
 
 #ifndef UTIL_GRID
-#define UTIL_GRID
+#define UTIL_// Called for every pixel the material is visible on.GRID
 
 
 int cell_coord_1d(float coord, float scale) {

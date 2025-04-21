@@ -1,11 +1,14 @@
-shader_type canvas_item;
+shader_type spatial;
+
+uniform sampler2D noise;
 
 void vertex() {
-	// Called for every vertex the material is visible on.
+	VERTEX.xyz *= 1.0 + texture(noise,UV).rgb*0.1;
 }
 
 void fragment() {
-	COLOR.rgb = vec3(sin(UV.x*100.f+TIME*2.0),cos(UV.y*100.f+TIME*4.0),0.f);
+	// Called for every pixel the material is visible on.
+	ALBEDO.rgb *= 0.1 + texture(noise,UV).rgb*0.1;
 }
 
 //void light() {

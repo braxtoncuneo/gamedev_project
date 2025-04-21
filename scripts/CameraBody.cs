@@ -5,22 +5,30 @@ public partial class CameraBody : RigidBody3D
 {
 
 	[Export]
-	float MaxTether;
+	public float MaxTether;
+
 	[Export]
-	float MinTether;
+	public float MinTether;
+
 	[Export]
-	float UnderLift;
+	public float UnderLift;
+
 	[Export]
-	float NearPush;
+	public float NearPush;
+
 	[Export]
-	float Approach = 1;
+	public float Approach = 1;
+	
+	[Export]
+	public float HorizontalDamp = 0.1f;
+
 	[Export]
 	Node3D   Target;
 
-	Camera3D Camera;
+	Camera3D _camera;
 
 	public override void _Ready() {
-		Camera = GetNode<Camera3D>("Camera3D");
+		_camera = GetNode<Camera3D>("Camera3D");
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -32,21 +40,29 @@ public partial class CameraBody : RigidBody3D
 		Vector3 offset = Target.GlobalPosition - GlobalPosition;
 		Vector3 toward = offset.Normalized();
 		float dist = offset.Length();
-		float speed_toward = toward.Dot(LinearVelocity);
+		float speedToward = toward.Dot(LinearVelocity);
 
-		float target_speed = speed_toward;
+		float targetSpeed = speedToward;
 		if (dist < MinTether) {
-			target_speed = (dist-MinTether) * Approach;
+			targetSpeed = (dist-MinTether) * Approach;
 		} else if (dist > MaxTether) {
-			target_speed = (dist-MaxTether) * Approach;
+			targetSpeed = (dist-MaxTether) * Approach;
 		}
-		float correction = target_speed - speed_toward;
+		float correction = targetSpeed - speedToward;
 		force = toward * new Vector3(correction,correction,correction);
 		if (offset.Y > 0) {
 			force.Y += offset.Y*UnderLift;
 		}
-		float near_push = (float) (NearPush/(dist*dist));
-		force -= toward.Normalized() * new Vector3(near_push,near_push,near_push);
+		float nearPush = (float) (NearPush/(dist*dist));
+		force -= toward.Normalized() * new Vector3(nearPush,nearPush,nearPush);
+		
+		Vector3 up = new Vector3(0,1,0);
+		Vector3 horizontalDirection = toward.Cross(up);
+		Vector3 horizontalSpeed = LinearVelocity.Project(horizontalDirection);
+		float damp = 1.0f - (float)Math.Pow(HorizontalDamp,(float)delta);
+		Vector3 horizontalDampScale = new Vector3 (damp,damp,damp);
+		force -= horizontalSpeed * horizontalDampScale;
+		
 		ApplyCentralImpulse(force);
 	}
 

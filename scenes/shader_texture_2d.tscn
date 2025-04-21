@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://shokc7ujaxe5"]
+
+[ext_resource type="Script" uid="uid://byhivd1y27nij" path="res://scripts/ShaderTexture2d.cs" id="1_f7e0i"]
+[ext_resource type="Shader" uid="uid://dnm6uvh0do2cq" path="res://shaders/staged/staged_checker.gdshader" id="3_bfyug"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_f7e0i"]
+resource_local_to_scene = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f7e0i"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bfyug"]
+albedo_texture = SubResource("ViewportTexture_f7e0i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ej207"]
+resource_local_to_scene = true
+shader = ExtResource("3_bfyug")
+shader_parameter/scale = 1.0
+
+[node name="ShaderTexture2d" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_f7e0i")
+surface_material_override/0 = SubResource("StandardMaterial3D_bfyug")
+script = ExtResource("1_f7e0i")
+ShaderMat = SubResource("ShaderMaterial_ej207")
+RenderTargetUpdateMode = 4
+
+[node name="SubViewport" type="SubViewport" parent="."]
+gui_disable_input = true
+positional_shadow_atlas_16_bits = false
+canvas_cull_mask = 4293918721
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport"]
+material = SubResource("ShaderMaterial_ej207")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
