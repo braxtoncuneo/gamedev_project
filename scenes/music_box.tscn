@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://cccqqk3efyojr"]
+
+[ext_resource type="Script" uid="uid://cxqg0uaocslln" path="res://scripts/MusicBox.cs" id="1_hi8iv"]
+[ext_resource type="AudioStream" uid="uid://byr1jsh1vhuos" path="res://audio/clock_ticking.ogg" id="2_qy88r"]
+[ext_resource type="Texture2D" uid="uid://detwies76sape" path="res://textures/music_box.png" id="2_s2ri5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qy88r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0l3tg"]
+albedo_texture = ExtResource("2_s2ri5")
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_tx7ee"]
+material = SubResource("StandardMaterial3D_0l3tg")
+
+[node name="MusicBox" type="RigidBody3D"]
+script = ExtResource("1_hi8iv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_qy88r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_tx7ee")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_qy88r")

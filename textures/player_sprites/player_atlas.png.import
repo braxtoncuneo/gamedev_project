@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://cg8l1wxmypuwt"
+path="res://.godot/imported/player_atlas.png-673a5f9db9b21b1858966ccf47d91166.image"
+
+[deps]
+
+source_file="res://textures/player_sprites/player_atlas.png"
+dest_files=["res://.godot/imported/player_atlas.png-673a5f9db9b21b1858966ccf47d91166.image"]
+
+[params]
+

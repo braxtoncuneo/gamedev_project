@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dbyip13aovb77"
+path="res://.godot/imported/still.png-3710d3b976b5aa505cb6ca9f8a55f2a7.image"
+
+[deps]
+
+source_file="res://textures/player_sprites/still.png"
+dest_files=["res://.godot/imported/still.png-3710d3b976b5aa505cb6ca9f8a55f2a7.image"]
+
+[params]
+

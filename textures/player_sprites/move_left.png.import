@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://blf7aq6fbvye1"
+path="res://.godot/imported/move_left.png-7020de1d5d6e90b20b928651e3151317.image"
+
+[deps]
+
+source_file="res://textures/player_sprites/move_left.png"
+dest_files=["res://.godot/imported/move_left.png-7020de1d5d6e90b20b928651e3151317.image"]
+
+[params]
+

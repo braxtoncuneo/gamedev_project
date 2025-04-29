@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dm4tu84xol3yq"]
+[gd_scene load_steps=87 format=3 uid="uid://dm4tu84xol3yq"]
 
 [ext_resource type="PackedScene" uid="uid://iorqytwghckn" path="res://scenes/follow_camera.tscn" id="1_7ykc4"]
 [ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/player.tscn" id="3_wcibb"]
@@ -12,9 +12,11 @@
 [ext_resource type="Shader" uid="uid://b66vxsudr4c6x" path="res://shaders/staged/patches.gdshader" id="11_6u1mn"]
 [ext_resource type="Script" uid="uid://8s3rv7q7eppm" path="res://scripts/MainCamera.cs" id="13_01n6w"]
 [ext_resource type="Shader" uid="uid://culgdpc5v2y48" path="res://shaders/staged/tile_color.gdshader" id="14_01n6w"]
+[ext_resource type="PackedScene" uid="uid://cccqqk3efyojr" path="res://scenes/music_box.tscn" id="14_6u1mn"]
 [ext_resource type="Shader" uid="uid://p5ghe3vlbp43" path="res://shaders/staged/tile_height.gdshader" id="14_si52b"]
 [ext_resource type="PackedScene" uid="uid://bvii5nqfrnrup" path="res://scenes/ground_patch.tscn" id="15_01n6w"]
 [ext_resource type="Shader" uid="uid://bkundmcj8eg8e" path="res://shaders/distort.gdshader" id="15_si52b"]
+[ext_resource type="AudioStream" uid="uid://cthlwklo3q888" path="res://audio/footsteps_on_gravel.mp3" id="17_6u1mn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6u1mn"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -246,7 +248,7 @@ resource_local_to_scene = true
 shader = ExtResource("11_6u1mn")
 shader_parameter/root_scale = 0.01
 shader_parameter/scale_factor = 4.0
-shader_parameter/offset = 0.65
+shader_parameter/offset = 0.72
 shader_parameter/border = 0.0
 shader_parameter/levels = 1
 shader_parameter/show_nucleus = true
@@ -357,7 +359,7 @@ collision_layer = 3
 [node name="AutoLight" parent="Room/Structure" instance=ExtResource("4_pu3yx")]
 
 [node name="Sphere" type="MeshInstance3D" parent="Room"]
-transform = Transform3D(0.885904, 0, -0.463867, 0, 1, 0, 0.463867, 0, 0.885904, 2.11351, 1.99705, -0.0111986)
+transform = Transform3D(0.97311, 0, -0.230337, 0, 1, 0, 0.230337, 0, 0.97311, 2.11351, 1.99705, -0.011198)
 mesh = SubResource("SphereMesh_6p3nn")
 skeleton = NodePath("../..")
 
@@ -522,6 +524,7 @@ grow_vertical = 2
 
 [node name="Patches" type="MeshInstance3D" parent="Room/ShaderDemos"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
+visible = false
 mesh = SubResource("QuadMesh_7nt27")
 surface_material_override/0 = SubResource("StandardMaterial3D_onjth")
 script = ExtResource("5_mngbo")
@@ -573,14 +576,16 @@ transform = Transform3D(0.665227, -0.597067, -0.448313, 0.338261, -0.294283, 0.8
 light_energy = 3.0
 light_indirect_energy = 2.0
 
+[node name="MusicBox" parent="Room" instance=ExtResource("14_6u1mn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01732, -3.57479)
+
 [node name="GroundPatch" parent="." instance=ExtResource("15_01n6w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -863.505, -320.147, -1245.86)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -863.505, -365.41, -1245.86)
 HorizontalScale = 20.0
 VerticalScale = 500.0
-MeshResolution = Vector2i(100, 100)
+MeshResolution = Vector2i(102, 100)
 
 [node name="Player" parent="." instance=ExtResource("3_wcibb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65642, 5.4031, 24.574)
 continuous_cd = true
-Acceleration = 3.0
-DebugMovement = true
+StepStream = ExtResource("17_6u1mn")
