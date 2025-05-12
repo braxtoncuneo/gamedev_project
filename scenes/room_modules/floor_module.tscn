@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c16guao08qdit"]
+
+[ext_resource type="Script" uid="uid://btk7kt2qbt3d2" path="res://scenes/FloorModule.cs" id="1_j24vd"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_sc4jl"]
+vertices = PackedVector3Array(-0.5, 0.5005, -0.5, -0.5, 0.5005, 0.5, 0.5, 0.5005, 0.5, 0.5, 0.5005, -0.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_radius = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0akyu"]
+size = Vector3(1, 0.125, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bcuq4"]
+
+[node name="Floor" type="NavigationRegion3D"]
+navigation_mesh = SubResource("NavigationMesh_sc4jl")
+script = ExtResource("1_j24vd")
+
+[node name="Body" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.063, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="Body"]
+shape = SubResource("BoxShape3D_0akyu")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.125, 0, 0, 0, 1, 0, 0.063, 0)
+mesh = SubResource("BoxMesh_bcuq4")

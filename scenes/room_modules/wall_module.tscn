@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://nvrfnpfvfp34"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yxa3q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_elrl3"]
+size = Vector3(1, 1, 0.125)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4ont8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6an36"]
+size = Vector3(1, 0.125, 0.5)
+
+[node name="WallModule" type="Node3D"]
+
+[node name="WallBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.063)
+
+[node name="Mesh" type="MeshInstance3D" parent="WallBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
+mesh = SubResource("BoxMesh_yxa3q")
+skeleton = NodePath("../..")
+
+[node name="Shape" type="CollisionShape3D" parent="WallBody"]
+shape = SubResource("BoxShape3D_elrl3")
+
+[node name="FloorBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.063, 0.25)
+
+[node name="Mesh" type="MeshInstance3D" parent="FloorBody"]
+transform = Transform3D(1, 0, 0, 0, 0.125, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_4ont8")
+skeleton = NodePath("../../WallBody")
+
+[node name="Shape" type="CollisionShape3D" parent="FloorBody"]
+shape = SubResource("BoxShape3D_6an36")

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxrqc12347aax"]
+
+[ext_resource type="PackedScene" uid="uid://c16guao08qdit" path="res://scenes/room_modules/floor_module.tscn" id="1_yk0gs"]
+[ext_resource type="PackedScene" uid="uid://comhty16rsiwi" path="res://scenes/room_modules/out_corner_module.tscn" id="2_0dr6g"]
+[ext_resource type="PackedScene" uid="uid://nvrfnpfvfp34" path="res://scenes/room_modules/wall_module.tscn" id="3_t3cbc"]
+
+[node name="Hallway" type="Node3D"]
+
+[node name="Floor" parent="." instance=ExtResource("1_yk0gs")]
+
+[node name="Floor2" parent="." instance=ExtResource("1_yk0gs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="CornerModule" parent="." instance=ExtResource("2_0dr6g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="WallModule" parent="." instance=ExtResource("3_t3cbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1)
+
+[node name="WallModule3" parent="." instance=ExtResource("3_t3cbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1)
+
+[node name="CornerModule2" parent="." instance=ExtResource("2_0dr6g")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -1)
+
+[node name="CornerModule3" parent="." instance=ExtResource("2_0dr6g")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1)
+
+[node name="WallModule6" parent="." instance=ExtResource("3_t3cbc")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 1)
+
+[node name="CornerModule4" parent="." instance=ExtResource("2_0dr6g")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 1)

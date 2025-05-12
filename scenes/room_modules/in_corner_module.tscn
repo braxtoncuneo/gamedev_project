@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxj23m71s2neu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s0707"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p77s4"]
+size = Vector3(0.5, 1, 0.125)
+
+[sub_resource type="BoxMesh" id="BoxMesh_igymg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_luvqi"]
+size = Vector3(0.5, 0.125, 0.5)
+
+[node name="CornerModule" type="Node3D"]
+
+[node name="WallBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 0.063)
+
+[node name="Mesh" type="MeshInstance3D" parent="WallBody"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
+mesh = SubResource("BoxMesh_s0707")
+skeleton = NodePath("../..")
+
+[node name="Shape" type="CollisionShape3D" parent="WallBody"]
+shape = SubResource("BoxShape3D_p77s4")
+
+[node name="FloorBody" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.063, 0.25)
+
+[node name="Mesh" type="MeshInstance3D" parent="FloorBody"]
+transform = Transform3D(0.5, 0, 0, 0, 0.125, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_igymg")
+skeleton = NodePath("../../WallBody")
+
+[node name="Shape" type="CollisionShape3D" parent="FloorBody"]
+shape = SubResource("BoxShape3D_luvqi")
+
+[node name="WallBody2" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.063, 0.5, 0.25)
+
+[node name="Mesh" type="MeshInstance3D" parent="WallBody2"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
+mesh = SubResource("BoxMesh_s0707")
+skeleton = NodePath("../..")
+
+[node name="Shape" type="CollisionShape3D" parent="WallBody2"]
+shape = SubResource("BoxShape3D_p77s4")
