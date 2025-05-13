@@ -15,7 +15,7 @@ public partial class HudLayer : CanvasLayer
 	Panel         reticle;
 	
 	private bool AttemptInitialize() {
-		Input.MouseMode = Input.MouseModeEnum.Hidden;
+		
 		var follow = GetTree()
 			.GetRoot()
 			.FindChild("FollowCamera",true,false)

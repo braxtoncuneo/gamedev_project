@@ -80,7 +80,7 @@ public partial class Core : RigidThing
 	public override void _Process(double delta)
 	{
 		// Try to spot the player
-		focus = FocusPoint.AttemptToSpot(this,playerRoot,3);
+		focus = FocusPoint.AttemptToSpot(this,playerRoot,4);
 		if (focus is not null) {
 			navAgent.TargetPosition = focus.Point;
 		}

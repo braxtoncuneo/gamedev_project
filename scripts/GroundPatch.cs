@@ -94,7 +94,7 @@ public partial class GroundPatch : StaticBody3D
 
 	void EnsureMeshKnown() {
 		if (_meshInst is null) {
-			_meshInst = GetNode("MeshInstance3D") as MeshInstance3D;
+			_meshInst = GetNode("NavigationRegion3D/MeshInstance3D") as MeshInstance3D;
 			//???
 			GroundMaterial = _meshInst.GetActiveMaterial(0) as ShaderMaterial;
 		}

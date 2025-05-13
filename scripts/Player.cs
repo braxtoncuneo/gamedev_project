@@ -22,6 +22,10 @@ public partial class Player : RigidThing
 	[Export]
 	float Acceleration = 4.0f;
 	
+	[Export]
+	Node3D MortalEnemy;
+	
+	NavigationAgent3D   navAgent;
 	AudioStreamPlayer   BackgroundMusicPlayer;
 	Vector3 lastStepPosition;
 	
@@ -86,6 +90,10 @@ public partial class Player : RigidThing
 		sprite.Texture = spriteAtlas;
 		step_phase = false;
 	}
+	
+	void InitNavigation() {
+		navAgent = GetNode("NavigationAgent3D") as NavigationAgent3D;
+	}
 
 	public override void _Ready()
 	{
@@ -94,12 +102,13 @@ public partial class Player : RigidThing
 		InitDebug();
 		InitAudio();
 		InitSprites();
+		InitNavigation();
 	}
-
-	public override void _Process(double delta)
-	{
-		// Force vector to accumulate into
-		Vector3 movement_force = new Vector3(0,0,0);
+	
+	
+	private Vector3 CalculatemovementForce() {
+				// Force vector to accumulate into
+		Vector3 movementForce = new Vector3(0,0,0);
 		
 		// Determine unit vectors to act as the basis for our space
 		Vector3 up = new Vector3(0,1,0);
@@ -110,31 +119,53 @@ public partial class Player : RigidThing
 
 		// Accumulate "bumps" into our force vector depending upon player inputs
 		if (Input.IsActionPressed("move_right")) {
-			movement_force += right;
+			movementForce += right;
 		}
 		if (Input.IsActionPressed("move_left")) {
-			movement_force -= right;
+			movementForce -= right;
 		}
 		if (Input.IsActionPressed("move_forward")) {
-			movement_force += forward;
+			movementForce += forward;
 		}
 		if (Input.IsActionPressed("move_backward")) {
-			movement_force -= forward;
+			movementForce -= forward;
 		}
 		
-		movement_force = movement_force.Normalized();
+		if (Input.IsActionPressed("auto_route")) {
+			navAgent.TargetPosition = MortalEnemy.GlobalPosition;
+			var nextStep = navAgent.GetNextPathPosition();
+			var offsetToNextStep = nextStep - GlobalPosition;
+			var dir = offsetToNextStep.Normalized();
+			movementForce = dir;
+		}
+		
+		return movementForce.Normalized();
+		
+	}	
+
+	public override void _Process(double delta)
+	{
+		
+		// Determine unit vectors to act as the basis for our space
+		Vector3 up = new Vector3(0,1,0);
+		Vector3 offset = Transform.Origin - currentCamera.GlobalPosition;
+		Vector3 outward = offset.Normalized();
+		Vector3 right = offset.Cross(up);
+		Vector3 forward = up.Cross(right);
+
+		Vector3 movementForce = CalculatemovementForce();
 		// Apply force, scaled by the delta and the player's accelleration
-		float alignment = LinearVelocity.Normalized().Dot(movement_force);
+		float alignment = LinearVelocity.Normalized().Dot(movementForce);
 		float scale = (float)delta*Acceleration;
 		scale /= (alignment*0.5f+1.0f);
-		ApplyCentralImpulse(movement_force*new Vector3(scale,scale,scale));
+		ApplyCentralImpulse(movementForce*new Vector3(scale,scale,scale));
 
 		// If we are debugging movement, update the state of the vectors
 		if (DebugMovement) {
 			VectorReadout.SetVector(GetNode("DebugMovement/Right"),right);
 			VectorReadout.SetVector(GetNode("DebugMovement/Up"),up);
 			VectorReadout.SetVector(GetNode("DebugMovement/Forward"),forward);
-			VectorReadout.SetVector(GetNode("DebugMovement/Force"),movement_force);
+			VectorReadout.SetVector(GetNode("DebugMovement/Force"),movementForce);
 		}
 		
 		// Determine direction of movement, relative to the camera

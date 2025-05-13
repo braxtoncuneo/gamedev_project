@@ -11,8 +11,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wqs0n"]
 render_priority = 0
 shader = ExtResource("2_g2els")
-shader_parameter/scale = 0.2
-shader_parameter/grid_scale = 0.1
+shader_parameter/scale = 0.1
+shader_parameter/grid_scale = 0.01
 
 [node name="Player" type="RigidBody3D"]
 collision_layer = 5
@@ -21,11 +21,12 @@ linear_damp = 0.1
 script = ExtResource("1_sg5xd")
 Acceleration = 1.0
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_gy7ai")
 
 [node name="CoreMesh" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("SphereMesh_ruixa")
 surface_material_override/0 = SubResource("ShaderMaterial_wqs0n")
 

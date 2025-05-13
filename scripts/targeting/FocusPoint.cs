@@ -2,6 +2,7 @@ using Godot;
 using System;
 
 public class FocusPoint {
+	
 	public IThing  Thing { get; set; }
 	public Vector3 Point { get; set; }
 	
