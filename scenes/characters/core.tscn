@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://c32uvwalyg03q"]
+
+[ext_resource type="Script" uid="uid://cg0f38671dwsc" path="res://scripts/Core.cs" id="1_stxme"]
+[ext_resource type="Shader" uid="uid://biay3ffc88a3m" path="res://shaders/core.gdshader" id="2_qvnut"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gy7ai"]
+radius = 0.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_ruixa"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqs0n"]
+render_priority = 0
+shader = ExtResource("2_qvnut")
+shader_parameter/fuzz_magnetude = 0.36
+shader_parameter/fuzz_period = -0.01
+shader_parameter/fuzz_rate = 0.215
+shader_parameter/inter_eye_angle = 0.475
+shader_parameter/pupil_rise_angle = 0.0
+shader_parameter/pupil_outter_angle = 0.3
+shader_parameter/pupil_inner_angle = 0.235
+shader_parameter/eye_fuzz = 0.1
+shader_parameter/mouth_rise_angle = -0.1
+shader_parameter/mouth_width_angle = 0.5
+shader_parameter/mouth_line_width_angle = 0.01
+shader_parameter/facing = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
+shader_parameter/facing_angular_velocity = 0.0
+shader_parameter/turn_fuzz = 0.1
+
+[node name="Core" type="RigidBody3D"]
+mass = 0.1
+script = ExtResource("1_stxme")
+Acceleration = 0.1
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_gy7ai")
+
+[node name="CoreMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ruixa")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_wqs0n")
+
+[node name="OmniLight" type="OmniLight3D" parent="."]
+light_energy = 0.001

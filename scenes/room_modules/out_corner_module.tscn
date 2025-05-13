@@ -16,7 +16,7 @@ size = Vector3(0.5, 0.125, 0.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.063, 0.5, 0.063)
 
 [node name="Mesh" type="MeshInstance3D" parent="WallBody"]
-transform = Transform3D(0.125, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
+transform = Transform3D(0.126, 0, 0, 0, 1, 0, 0, 0, 0.126, 0, 0, 0)
 mesh = SubResource("BoxMesh_s0707")
 skeleton = NodePath("../..")
 

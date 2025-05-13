@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Player : RigidBody3D
+public partial class Player : RigidThing
 {
 	
 	[Export]
@@ -89,6 +89,7 @@ public partial class Player : RigidBody3D
 
 	public override void _Ready()
 	{
+		RigidThingReady();
 		currentCamera = GetViewport().GetCamera3D();
 		InitDebug();
 		InitAudio();
@@ -121,8 +122,11 @@ public partial class Player : RigidBody3D
 			movement_force -= forward;
 		}
 		
+		movement_force = movement_force.Normalized();
 		// Apply force, scaled by the delta and the player's accelleration
+		float alignment = LinearVelocity.Normalized().Dot(movement_force);
 		float scale = (float)delta*Acceleration;
+		scale /= (alignment*0.5f+1.0f);
 		ApplyCentralImpulse(movement_force*new Vector3(scale,scale,scale));
 
 		// If we are debugging movement, update the state of the vectors

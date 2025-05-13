@@ -53,15 +53,22 @@ public partial class CameraBody : RigidBody3D
 		if (offset.Y > 0) {
 			force.Y += offset.Y*UnderLift;
 		}
-		float nearPush = (float) (NearPush/(dist*dist));
-		force -= toward.Normalized() * new Vector3(nearPush,nearPush,nearPush);
+		Vector3 horizOffset = new Vector3(offset.X,0.0f,offset.Z);
+		float horizDist = horizOffset.Length();
+		float nearPush = (float) (NearPush/horizDist);
+		force -= horizOffset.Normalized() * new Vector3(nearPush,nearPush,nearPush);
 		
 		Vector3 up = new Vector3(0,1,0);
 		Vector3 horizontalDirection = toward.Cross(up);
+		
 		Vector3 horizontalSpeed = LinearVelocity.Project(horizontalDirection);
 		float damp = 1.0f - (float)Math.Pow(HorizontalDamp,(float)delta);
 		Vector3 horizontalDampScale = new Vector3 (damp,damp,damp);
 		force -= horizontalSpeed * horizontalDampScale;
+		
+		Vector3 verticalSpeed = LinearVelocity.Project(up);
+		damp = 1.0f - (float)Math.Pow(HorizontalDamp,(float)delta);
+		force -= verticalSpeed * horizontalDampScale;
 		
 		ApplyCentralImpulse(force);
 	}

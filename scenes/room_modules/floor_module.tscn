@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c16guao08qdit"]
 
-[ext_resource type="Script" uid="uid://btk7kt2qbt3d2" path="res://scenes/FloorModule.cs" id="1_j24vd"]
+[ext_resource type="Script" uid="uid://btk7kt2qbt3d2" path="res://scripts/FloorModule.cs" id="1_j24vd"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_sc4jl"]
 vertices = PackedVector3Array(-0.5, 0.5005, -0.5, -0.5, 0.5005, 0.5, 0.5, 0.5005, 0.5, 0.5, 0.5005, -0.5)

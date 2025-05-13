@@ -1,0 +1,122 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqkd62qmwnm8s"]
+
+[ext_resource type="PackedScene" uid="uid://dpor1gkogx22" path="res://scenes/class_utilities/hud_layer.tscn" id="1_huhgs"]
+[ext_resource type="PackedScene" uid="uid://dpexwaueq1kbv" path="res://scenes/room_modules/generic_room.tscn" id="2_1x8et"]
+[ext_resource type="PackedScene" uid="uid://cxrqc12347aax" path="res://scenes/room_modules/generic_hallway.tscn" id="3_fwhp8"]
+[ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/characters/player.tscn" id="4_0sm75"]
+[ext_resource type="PackedScene" uid="uid://iorqytwghckn" path="res://scenes/class_utilities/follow_camera.tscn" id="5_xlfev"]
+[ext_resource type="PackedScene" uid="uid://c32uvwalyg03q" path="res://scenes/characters/core.tscn" id="6_1x8et"]
+[ext_resource type="Script" uid="uid://d2457cvwl6v8r" path="res://scripts/NPCControls.cs" id="7_fwhp8"]
+
+[node name="Level" type="Node3D"]
+
+[node name="Control" type="Control" parent="."]
+visible = false
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_fwhp8")
+
+[node name="AlwaysChase" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 113.0
+offset_bottom = 31.0
+toggle_mode = true
+text = "Always Chase"
+
+[node name="HUDLayer" parent="." instance=ExtResource("1_huhgs")]
+
+[node name="Rooms" type="Node3D" parent="."]
+
+[node name="Room" parent="Rooms" instance=ExtResource("2_1x8et")]
+
+[node name="Hallway" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.5)
+
+[node name="Room2" parent="Rooms" instance=ExtResource("2_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+
+[node name="Hallway2" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1.5)
+
+[node name="Room3" parent="Rooms" instance=ExtResource("2_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
+
+[node name="Hallway3" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 1.5)
+
+[node name="Room4" parent="Rooms" instance=ExtResource("2_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 0)
+
+[node name="Hallway4" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 1.5)
+
+[node name="Hallway5" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5, 0, 5)
+
+[node name="Hallway6" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.5, 0, 5)
+
+[node name="Hallway7" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.5, 0, 5)
+
+[node name="Hallway8" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.5, 0, 5)
+
+[node name="Room5" parent="Rooms" instance=ExtResource("2_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="Hallway9" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 7.52096)
+
+[node name="Room6" parent="Rooms" instance=ExtResource("2_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+
+[node name="Hallway10" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 7.5)
+
+[node name="Room7" parent="Rooms" instance=ExtResource("2_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 6)
+
+[node name="Hallway11" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 7.5)
+
+[node name="Room8" parent="Rooms" instance=ExtResource("2_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 6)
+
+[node name="Hallway12" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 7.5)
+
+[node name="Hallway13" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5, 0, 11)
+
+[node name="Hallway14" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7.5, 0, 11)
+
+[node name="Hallway15" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.5, 0, 11)
+
+[node name="Hallway16" parent="Rooms" instance=ExtResource("3_fwhp8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.5, 0, 11)
+
+[node name="Player" parent="." instance=ExtResource("4_0sm75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.839117, 0)
+StepSize = 0.25
+Acceleration = 4.0
+DebugMovement = true
+
+[node name="FollowCamera" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("5_xlfev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1456, 1.49349, 0)
+gravity_scale = -1.0
+MaxTether = 1.0
+MinTether = 1.0
+UnderLift = 2.0
+Target = NodePath("../Player")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.988717, -0.149794, 0, 0.148173, 0.978017, 0.146722, -0.0219781, -0.145066, 0.989178, 8.94624, 5.7736, 0)
+
+[node name="Core" parent="." instance=ExtResource("6_1x8et")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.570906, 0.830505, 1.8259)

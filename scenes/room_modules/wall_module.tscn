@@ -16,7 +16,7 @@ size = Vector3(1, 0.125, 0.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.063)
 
 [node name="Mesh" type="MeshInstance3D" parent="WallBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
+transform = Transform3D(1.001, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
 mesh = SubResource("BoxMesh_yxa3q")
 skeleton = NodePath("../..")
 
@@ -27,7 +27,7 @@ shape = SubResource("BoxShape3D_elrl3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.063, 0.25)
 
 [node name="Mesh" type="MeshInstance3D" parent="FloorBody"]
-transform = Transform3D(1, 0, 0, 0, 0.125, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(1.001, 0, 0, 0, 0.125, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("BoxMesh_4ont8")
 skeleton = NodePath("../../WallBody")
 
