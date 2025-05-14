@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://crk2gsnb7v4v6"]
 
-[ext_resource type="Script" uid="uid://dje3j26ayqkav" path="res://scripts/AutoLight.cs" id="1_v4gj2"]
+[ext_resource type="Script" uid="uid://dje3j26ayqkav" path="res://scenes/auto_light/AutoLight.cs" id="1_v4gj2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_lc2lt"]
 

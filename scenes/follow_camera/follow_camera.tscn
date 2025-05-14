@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://iorqytwghckn"]
 
-[ext_resource type="Script" uid="uid://immgsc7hbpci" path="res://scripts/CameraBody.cs" id="1_jr0g2"]
-[ext_resource type="Script" uid="uid://8s3rv7q7eppm" path="res://scripts/MainCamera.cs" id="2_8esm3"]
+[ext_resource type="Script" uid="uid://immgsc7hbpci" path="res://scenes/follow_camera/CameraBody.cs" id="1_jr0g2"]
+[ext_resource type="Script" uid="uid://8s3rv7q7eppm" path="res://scenes/follow_camera/MainCamera.cs" id="2_8esm3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jr0g2"]
 friction = 0.0

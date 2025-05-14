@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ctvy2lw5wkul5"]
 
-[ext_resource type="Script" uid="uid://c6xh7ptqdy483" path="res://scripts/RectWall.cs" id="1_kpj6v"]
+[ext_resource type="Script" uid="uid://cni16sxbvyhur" path="res://scenes/rect_wall/RectWall.cs" id="1_kpj6v"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ni5y8"]
 

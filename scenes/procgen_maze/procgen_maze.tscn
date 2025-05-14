@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cauvuraujf1u"]
+
+[ext_resource type="Script" uid="uid://cbmolw3ipgwvi" path="res://scenes/procgen_maze/ProcGenMaze.cs" id="1_cgheq"]
+[ext_resource type="PackedScene" uid="uid://cv8jq1i3wnpej" path="res://scenes/player/player.tscn" id="2_io6ox"]
+[ext_resource type="PackedScene" uid="uid://iorqytwghckn" path="res://scenes/follow_camera/follow_camera.tscn" id="3_ypba0"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_cgheq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.879142, 0.454155, -0.144407, 0, 0.303019, 0.952985, 0.47656, -0.837808, 0.266396, 0, 6.95386, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_io6ox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.17468, 2.33168, 7.89425)
+
+[node name="FollowCamera" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("3_ypba0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.90519, 2.26963, 5.96352)
+MaxTether = 2.0
+MinTether = 2.0
+Approach = 10.0
+Target = NodePath("../Player")

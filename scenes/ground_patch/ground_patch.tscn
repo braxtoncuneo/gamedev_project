@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://bvii5nqfrnrup"]
 
-[ext_resource type="Script" uid="uid://bpd6lk6tuckbt" path="res://scripts/GroundPatch.cs" id="1_rii6i"]
+[ext_resource type="Script" uid="uid://bpd6lk6tuckbt" path="res://scenes/ground_patch/GroundPatch.cs" id="1_rii6i"]
 [ext_resource type="Shader" uid="uid://0crdhvcmatfg" path="res://shaders/ground_patch.gdshader" id="3_ow3r2"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rii6i"]

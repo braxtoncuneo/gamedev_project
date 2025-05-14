@@ -10,7 +10,7 @@ public partial class MainCamera : Camera3D
 
 	public override void _Ready()
 	{
-		Target = GetNode("/root/Level").FindChild("Player") as Node3D;
+		Target = GetTree().GetRoot().FindChild("Player",true,false) as Node3D;
 	}
 
 	public override void _Process(double delta)

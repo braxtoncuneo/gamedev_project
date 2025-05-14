@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://shokc7ujaxe5"]
 
-[ext_resource type="Script" uid="uid://byhivd1y27nij" path="res://scripts/ShaderTexture2d.cs" id="1_f7e0i"]
+[ext_resource type="Script" uid="uid://byhivd1y27nij" path="res://scenes/shader_texture/ShaderTexture2d.cs" id="1_f7e0i"]
 [ext_resource type="Shader" uid="uid://dnm6uvh0do2cq" path="res://shaders/staged/staged_checker.gdshader" id="3_bfyug"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_f7e0i"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Gamedev Project"
-run/main_scene="res://scenes/hill_place.tscn"
+run/main_scene="uid://cauvuraujf1u"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 

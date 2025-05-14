@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://tjtg6lxoxxy8"]
 
-[ext_resource type="Script" uid="uid://d3waotho6rhpt" path="res://scripts/VectorReadout.cs" id="1_sjrim"]
+[ext_resource type="Script" uid="uid://d3waotho6rhpt" path="res://scenes/vector_readout/VectorReadout.cs" id="1_sjrim"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ct4a4"]
 top_radius = 0.0

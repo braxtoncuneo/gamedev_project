@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cccqqk3efyojr"]
 
-[ext_resource type="Script" uid="uid://cxqg0uaocslln" path="res://scripts/MusicBox.cs" id="1_hi8iv"]
+[ext_resource type="Script" uid="uid://cxqg0uaocslln" path="res://scenes/music_box/MusicBox.cs" id="1_hi8iv"]
 [ext_resource type="AudioStream" uid="uid://byr1jsh1vhuos" path="res://audio/clock_ticking.ogg" id="2_qy88r"]
 [ext_resource type="Texture2D" uid="uid://detwies76sape" path="res://textures/music_box.png" id="2_s2ri5"]
 
