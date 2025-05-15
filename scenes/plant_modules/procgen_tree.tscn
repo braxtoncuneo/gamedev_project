@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7ru40mtyqk6p"]
 
-[ext_resource type="Script" uid="uid://c3ujbvdxt2ioo" path="res://scenes/ProcgenTree.cs" id="1_nawuj"]
+[ext_resource type="Script" uid="uid://c3ujbvdxt2ioo" path="res://scenes/plant_modules/ProcGenTree.cs" id="1_nawuj"]
 
 [node name="Tree" type="Node3D"]
 script = ExtResource("1_nawuj")
