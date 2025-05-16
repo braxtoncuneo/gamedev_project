@@ -63,7 +63,7 @@ public partial class ProcGenMaze : Node3D
 				));
 			AddChild(node);
 			if (!cell.Data) {
-				if (rng.Randi()%100 == 0){
+				if (rng.Randi()%40 == 0){
 					var treeInst = tree.Instantiate() as Node3D;
 					node.AddChild(treeInst);
 				}

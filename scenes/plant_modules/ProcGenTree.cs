@@ -56,18 +56,20 @@ public partial class ProcGenTree : Node3D
 		
 		public void Reify () {
 		
-			if (branchMesh is not null) {
+			if (branchMesh is null) {
 				var branch = new CapsuleMesh();
 				branch.Height = 1.0f;
 				branch.Radius = 1.0f/16.0f;
 				branchMesh = branch;
+				branchMesh.SurfaceSetMaterial(0,new StandardMaterial3D());
 			}
 			
-			if (foliageMesh is not null) {
+			if (foliageMesh is null) {
 				var foliage = new CapsuleMesh();
 				foliage.Height = 1.0f;
 				foliage.Radius = 1.0f;
 				foliageMesh = foliage;
+				foliageMesh.SurfaceSetMaterial(0,new StandardMaterial3D());
 			}
 				
 			var mesh = new MeshInstance3D();
@@ -80,27 +82,28 @@ public partial class ProcGenTree : Node3D
 			}
 			mesh.SetMesh(capsuleMesh);
 			
-			Vector3 tipOffset = new Vector3(0.0f,scale/2.0f,0.0f);
-			Transform = mesh.Transform.TranslatedLocal(tipOffset);
+			Vector3 tipOffset = new Vector3(0.0f,0.5f,0.0f);
+			var offsetTform = mesh.Transform.TranslatedLocal(tipOffset);
+			Transform3D rotateTform = Transform3D.Identity;
 			if(direction.Dot(new Vector3(0.0f,1.0f,0.0f)) < 0.99) {
-				mesh.Transform = Transform3D.Identity.LookingAt(direction) * mesh.Transform;
+				rotateTform = Transform3D.Identity.LookingAt(direction);
 			} else {
-				mesh.Transform = Transform3D.Identity.LookingAt(direction, new Vector3(1.0f,0.0f,0.0f)) * mesh.Transform;
+				rotateTform = Transform3D.Identity.LookingAt(
+					direction,
+					new Vector3(1.0f,0.0f,0.0f)
+				);
 			}
 			AddChild(mesh);
 			mesh.SetOwner(this);
 			Vector3 scaleVec = new Vector3(scale,scale,scale);
-			if (isBranch) {
-				mesh.Transform = mesh.Transform.Scaled(scaleVec);
-			} else {
-				mesh.Transform = mesh.Transform.Scaled(scaleVec);
-			}
+			var scaleTform = Transform3D.Identity.Scaled(scaleVec);
+			mesh.Transform =  rotateTform * offsetTform * mesh.Transform;
 			
 			foreach (var child in children) {
 				child.Reify();
 				AddChild(child);
 				child.SetOwner(this);
-				child.Transform = Transform3D.Identity.TranslatedLocal(tipOffset) * child.Transform;
+				child.Transform = rotateTform * offsetTform * offsetTform * child.Transform;
 			}
 		}
 	};
