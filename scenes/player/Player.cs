@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public partial class Player : RigidBody3D
 {
+	static Player activePlayer;
+	
+	public static Player ActivePlayer { get=>activePlayer; }
 	
 	[Export]
 	float StepSize = 1.0f;
@@ -89,6 +92,7 @@ public partial class Player : RigidBody3D
 
 	public override void _Ready()
 	{
+		activePlayer = this;
 		currentCamera = GetViewport().GetCamera3D();
 		InitDebug();
 		InitAudio();

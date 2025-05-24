@@ -22,7 +22,6 @@ script = ExtResource("1_sg5xd")
 shape = SubResource("SphereShape3D_gy7ai")
 
 [node name="CoreMesh" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("SphereMesh_ruixa")
 surface_material_override/0 = SubResource("ShaderMaterial_wqs0n")
 

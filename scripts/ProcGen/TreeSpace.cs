@@ -80,7 +80,7 @@ public class Tree <KeyType,DataType>
 
 	public class Cell
 		: ICell<List<KeyType>,DataType>
-		, IAdjCell<List<KeyType>,DataType>
+		, IAdjCell<Cell,List<KeyType>,DataType>
 	{
 		Tree<KeyType,DataType> node;
 		List<KeyType> location;
@@ -98,16 +98,16 @@ public class Tree <KeyType,DataType>
 			}
 		}
 
-		public IEnumerable<IAdjCell<List<KeyType>,DataType>> Adj() {
+		public IEnumerable<Cell> Adj() {
 			if (node.parent is not null){
-				var supercoord = new List<KeyType>(location);;
+				var supercoord = new List<KeyType>(location);
 				supercoord.RemoveAt(location.Count()-1);
-				yield return (new Cell(node.parent,supercoord)) as IAdjCell<List<KeyType>,DataType>;
+				yield return (new Cell(node.parent,supercoord));
 			}
 			foreach (var child in node.children) {
-				var subcoord = new List<KeyType>(location);;
+				var subcoord = new List<KeyType>(location);
 				subcoord.Add(child.Key);
-				yield return (new Cell(child.Value,subcoord)) as IAdjCell<List<KeyType>,DataType>;
+				yield return (new Cell(child.Value,subcoord));
 			}
 		}
 

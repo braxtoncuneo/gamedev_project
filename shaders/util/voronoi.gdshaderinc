@@ -154,7 +154,3 @@ VoronoiScanEntry3D voronoi_3d(
 
 	return ranking[0];
 }
-
-
-
-

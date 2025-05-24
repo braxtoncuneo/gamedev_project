@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqtu362eojic2"]
+
+[ext_resource type="Shader" uid="uid://fdej6vxkw8rg" path="res://shaders/particle.gdshader" id="1_pf2mw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xkom"]
+shader = ExtResource("1_pf2mw")
+shader_parameter/character_position = Vector3(0, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_h8is7"]
+
+[node name="ParticleDemo" type="GPUParticles3D"]
+process_material = SubResource("ShaderMaterial_8xkom")
+draw_pass_1 = SubResource("QuadMesh_h8is7")

@@ -91,7 +91,7 @@ public class Grid2D <DataType>
 
 	public class Cell
 		: ICell<Vector2I,DataType>
-		, IAdjCell<Vector2I,DataType>
+		, IAdjCell<Cell,Vector2I,DataType>
 	{
 		Grid2D<DataType> backingGrid;
 
@@ -112,7 +112,7 @@ public class Grid2D <DataType>
 			}
 		}
 
-		public IEnumerable<IAdjCell<Vector2I,DataType>> Adj() {
+		public IEnumerable<Cell> Adj() {
 			for(int y=-1; y<=1; y++) {
 				for(int x=-1; x<=1; x++) {
 					if ( (x==0) && (y==0) ) {
@@ -120,7 +120,7 @@ public class Grid2D <DataType>
 					}
 					Vector2I adjLocation = new Vector2I(location.X+x,location.Y+y);
 					if (backingGrid.BoundCoord(ref adjLocation)) {
-						var result = (new Cell(backingGrid,adjLocation)) as IAdjCell<Vector2I,DataType>;
+						var result = (new Cell(backingGrid,adjLocation));
 						yield return result;
 					}
 				}
