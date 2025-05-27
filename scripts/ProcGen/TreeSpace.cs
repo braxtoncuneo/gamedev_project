@@ -26,6 +26,10 @@ public class Tree <KeyType,DataType>
 	private Tree(Tree<KeyType,DataType> parent) : this() {
 		this.parent = parent;
 	}
+	
+	public ICell<List<KeyType>,DataType> At() {
+		 return new Cell(this,new List<KeyType>()) as ICell<List<KeyType>,DataType>;
+	}
 
 	public ICell<List<KeyType>,DataType> At(List<KeyType> coord) {
 		Tree<KeyType,DataType> iter = this;
@@ -33,12 +37,12 @@ public class Tree <KeyType,DataType>
 		for (int i=0; i<limit; i++) {
 			KeyType key = coord[limit];
 			if (! iter.children.TryGetValue(key, out iter)) {
-				var newTree = new Tree<KeyType,DataType>(this);
+				var newTree = new Tree<KeyType,DataType>(iter);
 				iter.children[key] = newTree;
 				iter = newTree;
 			}
 		}
-		return new Cell(iter,new List<KeyType>(coord));
+		return new Cell(iter,new List<KeyType>(coord)) as ICell<List<KeyType>,DataType>;
 	}
 
 	private IEnumerator<ICell<List<KeyType>,DataType>> RecurseEnumeration(List<KeyType> coord) {
@@ -80,7 +84,7 @@ public class Tree <KeyType,DataType>
 
 	public class Cell
 		: ICell<List<KeyType>,DataType>
-		, IAdjCell<Cell,List<KeyType>,DataType>
+		, ITreeCell<List<KeyType>,DataType>
 	{
 		Tree<KeyType,DataType> node;
 		List<KeyType> location;
@@ -97,17 +101,22 @@ public class Tree <KeyType,DataType>
 				node.data = value;
 			}
 		}
-
-		public IEnumerable<Cell> Adj() {
+		
+		public ITreeCell<List<KeyType>,DataType> Parent() {
 			if (node.parent is not null){
 				var supercoord = new List<KeyType>(location);
 				supercoord.RemoveAt(location.Count()-1);
-				yield return (new Cell(node.parent,supercoord));
+				return (new Cell(node.parent,supercoord)) as ITreeCell<List<KeyType>,DataType>;
+			} else {
+				return null;
 			}
+		}
+
+		public IEnumerable<ITreeCell<List<KeyType>,DataType>> Children() {
 			foreach (var child in node.children) {
 				var subcoord = new List<KeyType>(location);
 				subcoord.Add(child.Key);
-				yield return (new Cell(child.Value,subcoord));
+				yield return (new Cell(child.Value,subcoord)) as ITreeCell<List<KeyType>,DataType>;
 			}
 		}
 
@@ -115,6 +124,8 @@ public class Tree <KeyType,DataType>
 			this.node     = node;
 			this.location = location;
 		}
+
+	
 
 	}
 

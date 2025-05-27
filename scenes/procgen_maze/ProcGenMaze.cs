@@ -79,7 +79,7 @@ public partial class ProcGenMaze : Node3D
 		for (int i=0; i<100; i++) {
 			wallGrid = wallGrid.Map((cell) => {
 				int count = 0;
-				foreach (var adj in cell.Adj()) {
+				foreach (var adj in cell.AsAdj().Adj()) {
 					if (adj.Data) {
 						count++;
 					}

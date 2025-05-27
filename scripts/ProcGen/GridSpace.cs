@@ -91,7 +91,7 @@ public class Grid2D <DataType>
 
 	public class Cell
 		: ICell<Vector2I,DataType>
-		, IAdjCell<Cell,Vector2I,DataType>
+		, IAdjCell<Vector2I,DataType>
 	{
 		Grid2D<DataType> backingGrid;
 
@@ -112,7 +112,7 @@ public class Grid2D <DataType>
 			}
 		}
 
-		public IEnumerable<Cell> Adj() {
+		public IEnumerable<IAdjCell<Vector2I,DataType>> Adj() {
 			for(int y=-1; y<=1; y++) {
 				for(int x=-1; x<=1; x++) {
 					if ( (x==0) && (y==0) ) {
